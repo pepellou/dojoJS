@@ -7,6 +7,7 @@ var anObject = {
 };
 
 document.writeln(anObject.aProperty);
+document.writeln(anObject['aProperty']);
 document.writeln(anObject.anotherProperty);
 document.writeln(anObject.aMethod());
 
