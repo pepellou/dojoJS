@@ -1,29 +1,22 @@
 <html><head>
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 </head><body>
+    <style>
+        iframe, table { width: 100%; }
+        iframe, pre { height: 200px; overflow-y: scroll; }
+        td { width: 50%; }
+        td:last-child {
+            vertical-align: top;
+            padding: 10px;
+            background: black;
+            color: lightgreen;
+        }
+    </style>
     <h1>Javascript Dojo</h1>
     <h2>Callbacks</h2>
     <h3>Some spaguetti!</h3>
-    <script language="javascript">
-        $(function() {
-            var username = 'pepellou';
-            $.ajax({
-                url: 'https://api.github.com/users/' + username + '/repos',
-                success: function(repos) {
-                    repos.forEach(function(repo) {
-                        $.ajax({
-                            url: repo.contributors_url,
-                            success: function(users) {
-                                users.forEach(function(user) {
-                                    if (user.login != username) {
-                                        console.log(user.login);
-                                    }
-                                });
-                            }
-                        });
-                    });
-                }
-            });
-        });
-    </script>
+    <table><tr>
+        <td><iframe src="js/callbacks/spaguetti.js"></iframe></td>
+        <td><pre><script src="js/callbacks/spaguetti.js"></script></pre></td>
+    </tr></table>
 </body></html>
