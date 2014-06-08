@@ -1,31 +1,30 @@
-$(function() {
-    var ajax_get = function(url) {
-    	var promise = jQuery.Deferred();
-    	$.ajax({
-    	    url: url,
-    	    dataType: 'json',
-    	    success: function(results) {
-    	    	promise.resolve(results);
-    	    }
-    	});
-    	return promise.promise();
-    };
-    var get_first_element = function(array) {
-    	var promise = jQuery.Deferred();
-    	promise.resolve(array[0]);
-    	return promise.promise();
-    };
-    var get_events_url = function(repo) {
-    	var promise = jQuery.Deferred();
-    	promise.resolve(repo.events_url);
-    	return promise.promise();
-    };
-    var get_last_commit_url = function(event) {
-    	var promise = jQuery.Deferred();
-    	promise.resolve(event.payload.commits[0].url);
-    	return promise.promise();
-    };
+function make_promise(callback) {
+    var promise = jQuery.Deferred();
+    promise.resolve(callback());
+    return promise.promise();
+}
+function ajax_get(url) {
+    var promise = jQuery.Deferred();
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        success: function(results) {
+            promise.resolve(results);
+        }
+    });
+    return promise.promise();
+};
+function get_first_element(array) {
+    return make_promise(function() { return array[0]; });
+};
+function get_events_url(repo) {
+    return make_promise(function() { return repo.events_url; });
+};
+function get_last_commit_url(event) {
+    return make_promise(function() { return event.payload.commits[0].url; });
+};
 
+$(function() {
     var username = 'pepellou';
     $.when(ajax_get('https://api.github.com/users/' + username + '/repos'))
         .then(get_first_element)
