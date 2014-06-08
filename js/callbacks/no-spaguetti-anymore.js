@@ -1,5 +1,5 @@
 $(function() {
-    var get_url = function(url) {
+    var ajax_get = function(url) {
     	var promise = jQuery.Deferred();
     	$.ajax({
     	    url: url,
@@ -10,7 +10,7 @@ $(function() {
     	});
     	return promise.promise();
     };
-    var get_first = function(array) {
+    var get_first_element = function(array) {
     	var promise = jQuery.Deferred();
     	promise.resolve(array[0]);
     	return promise.promise();
@@ -27,13 +27,13 @@ $(function() {
     };
 
     var username = 'pepellou';
-    $.when(get_url('https://api.github.com/users/' + username + '/repos'))
-        .then(get_first)
+    $.when(ajax_get('https://api.github.com/users/' + username + '/repos'))
+        .then(get_first_element)
         .then(get_events_url)
-        .then(get_url)
-        .then(get_first)
+        .then(ajax_get)
+        .then(get_first_element)
         .then(get_last_commit_url)
-        .then(get_url)
+        .then(ajax_get)
         .done(function (commitInfo) {
             $('pre').append('<p>Last commit message is <strong>' + commitInfo.commit.message + '</strong>.</p>');
         });
